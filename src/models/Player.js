@@ -18,15 +18,17 @@ export default class Player extends Model{
         defaultValue: '',
         validate: {
           classeValida(value){
-            const classes = ['espachim', 'arqueiro', 'mago', 'ladrao'];
+            const classes = ['espadachim', 'arqueiro', 'mago', 'ladrao'];
 
             if(typeof value !== 'string') throw new Error('Invalid class');
 
+            let valid = false;
             for(let i in classes){
-              if(value.toLowerCase() === classes[i]) return true;
+              if(value.toLowerCase() === classes[i]) valid = true;
             }
-
-            throw new Error(`Invalid class, try: ${classes.join(' ')}`);
+            if(!valid){
+              throw new Error(`Invalid class, try: ${classes.join(' ')}`);
+            }
           },
         }
       },

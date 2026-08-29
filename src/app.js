@@ -3,7 +3,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 dotenv.config();
 
-//import './database';
+import './database';
 
 import homeRoutes from './routes/homeRoutes';
 import playerRoutes from './routes/playerRoutes';
@@ -22,7 +22,7 @@ class App {
 
   routes(){
     this.app.use('/', homeRoutes);
-    this.app.use('/player', playerRoutes);
+    this.app.use('/player/', playerRoutes);
   }
 }
 

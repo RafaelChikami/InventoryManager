@@ -22,9 +22,7 @@ class PlayerController{
       const { id, name, classe, nivel, slots } = newPlayer;
       return res.json({ id, name, classe, nivel, slots });
     }catch(e){
-      return res.status(400).json({
-        errors: e.errors.map(error => error.message)
-      });
+      return res.status(400).json(e);
     }
   }
 
