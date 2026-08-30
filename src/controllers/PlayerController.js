@@ -3,12 +3,12 @@ import Player from "../models/Player";
 class PlayerController{
   async show(req, res){
     try{
-      const player = await Player.findByPk(req.body.id);
+      const player = await Player.findByPk(req.playerId);
       if(!player){
         return res.json('Player not found');
       }
       const { id, name, classe, nivel, slots } = player;
-      return res.json({ id, name, classe, nivel, slots });
+      return res.json({ id, name, classe, nivel, slots, email });
     }catch(e){
       return res.status(400).json({
         errors: e.errors.map(error => error.message)
@@ -19,16 +19,18 @@ class PlayerController{
   async store(req, res){
     try{
       const newPlayer = await Player.create(req.body);
-      const { id, name, classe, nivel, slots } = newPlayer;
-      return res.json({ id, name, classe, nivel, slots });
+      const { id, name, classe, nivel, slots, email} = newPlayer;
+      return res.json({ id, name, classe, nivel, slots, email });
     }catch(e){
-      return res.status(400).json(e);
+      return res.status(400).json({
+        errors: e.errors.map(error => error.message)
+      });
     }
   }
 
   async update(req, res){
     try{
-      const player = await Player.findByPk(req.body.id);
+      const player = await Player.findByPk(req.playerId);
       if(!player){
         return res.json('Player not found');
       }
@@ -44,7 +46,7 @@ class PlayerController{
 
   async delete(req, res){
     try{
-      const player = await Player.findByPk(req.body.id);
+      const player = await Player.findByPk(req.playerId);
       if(!player){
         return res.json('Player not found');
       }

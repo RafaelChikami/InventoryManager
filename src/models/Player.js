@@ -58,7 +58,7 @@ export default class Player extends Model{
         defaultValue: '',
         validate: {
           isEmail: {
-            msg: 'This must be an email'
+            msg: 'Email must be valid'
           }
         }
       },
