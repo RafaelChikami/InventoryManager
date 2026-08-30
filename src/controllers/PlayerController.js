@@ -7,9 +7,10 @@ class PlayerController{
       if(!player){
         return res.json('Player not found');
       }
-      const { id, name, classe, nivel, slots } = player;
+      const { id, name, classe, nivel, slots, email } = player;
       return res.json({ id, name, classe, nivel, slots, email });
     }catch(e){
+      console.log(e);
       return res.status(400).json({
         errors: e.errors.map(error => error.message)
       });
@@ -34,6 +35,11 @@ class PlayerController{
       if(!player){
         return res.json('Player not found');
       }
+
+      if(req.body.email || req.body.password){
+        return res.json('You can not change your email or password this way');
+      }
+
       const newPlayersData = await player.update(req.body);
       const { id, name, classe, nivel, slots } = newPlayersData;
       return res.json({ id, name, classe, nivel, slots });
