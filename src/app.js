@@ -8,6 +8,7 @@ import './database';
 import homeRoutes from './routes/homeRoutes';
 import playerRoutes from './routes/playerRoutes';
 
+
 class App {
   constructor(){
     this.app = express();

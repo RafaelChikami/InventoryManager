@@ -51,6 +51,25 @@ export default class Player extends Model{
             msg: 'You must have a least 1 slot'
           }
         }
+      },
+      email: {
+        type: Sequelize.STRING,
+        defaultValue: '',
+        validate: {
+          isEmail: {
+            msg: 'This must be an email'
+          }
+        }
+      },
+      password: {
+        type: Sequelize.STRING,
+        defaultValue: '',
+        validate: {
+          len: {
+            args: [5, 100],
+            msg: 'Password must have more than 5 characters'
+          }
+        }
       }
     }, {
       sequelize,
