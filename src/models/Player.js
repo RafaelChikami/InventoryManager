@@ -1,4 +1,5 @@
 import Sequelize, { Model } from 'sequelize';
+import bcrypt from 'bcryptjs';
 
 export default class Player extends Model{
   static init(sequelize){
@@ -64,6 +65,10 @@ export default class Player extends Model{
       password: {
         type: Sequelize.STRING,
         defaultValue: '',
+      },
+      raw_password: {
+        type: Sequelize.VIRTUAL,
+        defaultValue: '',
         validate: {
           len: {
             args: [5, 100],
@@ -75,6 +80,16 @@ export default class Player extends Model{
       sequelize,
     });
 
+    this.addHook('beforeSave', async player => {
+      if(player.raw_password){
+        player.password = await bcrypt.hash(player.raw_password, 8);
+      }
+    });
+
     return this;
+  }
+
+  passwordValid(password){
+    return bcrypt.compare(password, this.password);
   }
 }
