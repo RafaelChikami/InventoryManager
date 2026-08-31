@@ -2,8 +2,9 @@ import Sequelize  from 'sequelize';
 import databaseConfig from '../config/database';
 
 import Player from '../models/Player';
+import Inventory from '../models/Inventory';
 
-const models = [Player];
+const models = [Player, Inventory];
 
 const connection = new Sequelize(databaseConfig);
 
