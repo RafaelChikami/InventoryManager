@@ -8,6 +8,7 @@ import './database';
 import homeRoutes from './routes/homeRoutes';
 import playerRoutes from './routes/playerRoutes';
 import tokenRoutes from './routes/tokenRoutes';
+import inventoryRoutes from './routes/inventoryRoutes';
 
 class App {
   constructor(){
@@ -25,6 +26,7 @@ class App {
     this.app.use('/', homeRoutes);
     this.app.use('/player/', playerRoutes);
     this.app.use('/token/', tokenRoutes);
+    this.app.use('/inventory/', inventoryRoutes);
   }
 }
 

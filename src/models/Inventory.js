@@ -1,0 +1,34 @@
+import Sequelize, { Model } from 'sequelize';
+
+export default class Inventory extends Models(){
+  static init(sequelize){
+    super.init({
+      slots: {
+        type: Sequelize.INTEGER,
+        validate: {
+          min: {
+            args: [0],
+            msg: 'Value must be higher than 0'
+          }
+        }
+      },
+      itens: {
+        type: Sequelize.JSON,
+      },
+      gold: {
+        type: Sequelize.INTEGER,
+      },
+      player_id: {
+        type: Sequelize.INTEGER,
+      }
+    }, {
+      sequelize,
+    });
+
+    return this;
+  }
+
+  static associate(models){
+    this.belongsTo(models.Player, { foreingKey: 'player_id' });
+  }
+}

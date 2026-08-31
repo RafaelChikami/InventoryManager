@@ -92,4 +92,8 @@ export default class Player extends Model{
   passwordValid(password){
     return bcrypt.compare(password, this.password);
   }
+
+  static associate(models){
+    this.hasOne(models.Inventory, { foreignKey: 'player_id' });
+  }
 }
