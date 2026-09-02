@@ -1,6 +1,6 @@
 import Sequelize, { Model } from 'sequelize';
 
-export default class Inventory extends Models(){
+export default class Inventory extends Model{
   static init(sequelize){
     super.init({
       slots: {

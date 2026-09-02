@@ -1,4 +1,5 @@
 import Player from "../models/Player";
+import Inventory from "../models/Inventory";
 
 class PlayerController{
   async show(req, res){
@@ -21,7 +22,21 @@ class PlayerController{
     try{
       const newPlayer = await Player.create(req.body);
       const { id, name, classe, nivel, slots, email} = newPlayer;
-      return res.json({ id, name, classe, nivel, slots, email });
+
+      const newInventoryData = {
+        slots: slots,
+        itens: {itens: []},
+        gold: 0,
+        player_id: id
+      };
+      const newInventory = await Inventory.create(newInventoryData);
+      const { slotsInventory, itens, gold, player_id } = newInventory;
+
+      return res.json({
+        player: { id, name, classe, nivel, slots, email },
+        inventory: { slotsInventory, itens, gold, player_id }
+      });
+
     }catch(e){
       return res.status(400).json({
         errors: e.errors.map(error => error.message)
