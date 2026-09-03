@@ -14,6 +14,12 @@ export default class Inventory extends Model{
       },
       itens: {
         type: Sequelize.JSON,
+        validate: {
+          itensValida(value){
+            //só strings devem passar
+            if(value.itens.length > this.slots) throw new Error('Your inventory is full');
+          },
+        }
       },
       gold: {
         type: Sequelize.INTEGER,
@@ -29,6 +35,6 @@ export default class Inventory extends Model{
   }
 
   static associate(models){
-    this.belongsTo(models.Player, { foreingKey: 'player_id' });
+    this.belongsTo(models.Player, { foreignKey: 'player_id' });
   }
 }

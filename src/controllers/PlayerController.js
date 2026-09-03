@@ -30,11 +30,12 @@ class PlayerController{
         player_id: id
       };
       const newInventory = await Inventory.create(newInventoryData);
-      const { slotsInventory, itens, gold, player_id } = newInventory;
+      const { itens, gold, player_id } = newInventory;
+
 
       return res.json({
         player: { id, name, classe, nivel, slots, email },
-        inventory: { slotsInventory, itens, gold, player_id }
+        inventory: { slots, itens, gold, player_id }
       });
 
     }catch(e){
