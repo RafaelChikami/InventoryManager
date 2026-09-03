@@ -48,7 +48,7 @@ class InventoryController{
       if(add){
         const newItens = [ ...inventoryItens, add];
         if(newItens.length > limit){
-          return res.json('You cant do this, becase it will exceed your slots');
+          return res.json('You cant do this, because it will exceed your slots');
         }
         const newInventoryData = {
           itens: {itens: newItens},
@@ -69,15 +69,24 @@ class InventoryController{
         const newItens = [ ...inventoryItens];
         newItens.splice(indexDel, 1);
 
-        const newInventorData = {
+        const newInventoryData = {
           itens: {itens: newItens},
         }
 
-        const newInventory = await inventory.update(newInventorData);
+        const newInventory = await inventory.update(newInventoryData);
         return res.json(newInventory);
       }
       if(rewrite){
+        const newItens = req.body.rewrite;
+        if(newItens.length > limit){
+          return res.json('You cant do this, because it will exceed your slots');
+        }
 
+        const newInventoryData = {
+          itens: {itens: newItens},
+        }
+        const newInventory = await inventory.update(newInventoryData);
+        return res.json(newInventory);
       }
 
       return res.json('?You have to inform: add, del or rewrite');
