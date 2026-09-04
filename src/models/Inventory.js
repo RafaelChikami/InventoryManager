@@ -7,7 +7,7 @@ export default class Inventory extends Model{
         type: Sequelize.INTEGER,
         validate: {
           min: {
-            args: [0],
+            args: [1],
             msg: 'Value must be higher than 0'
           }
         }

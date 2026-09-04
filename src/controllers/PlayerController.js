@@ -21,16 +21,16 @@ class PlayerController{
   async store(req, res){
     try{
       const newPlayer = await Player.create(req.body);
-      const { id, name, classe, nivel, slots, email} = newPlayer;
+      const { id, name, classe, nivel, email} = newPlayer;
 
       const newInventoryData = {
-        slots: slots,
+        slots: 6,
         itens: {itens: []},
         gold: 0,
         player_id: id
       };
       const newInventory = await Inventory.create(newInventoryData);
-      const { itens, gold, player_id } = newInventory;
+      const { slots, itens, gold, player_id } = newInventory;
 
 
       return res.json({

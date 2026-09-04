@@ -43,16 +43,6 @@ export default class Player extends Model{
           }
         }
       },
-      slots: {
-        type: Sequelize.INTEGER,
-        defaultValue: 6,
-        validate: {
-          min: {
-            args: [1],
-            msg: 'You must have a least 1 slot'
-          }
-        }
-      },
       email: {
         type: Sequelize.STRING,
         defaultValue: '',
