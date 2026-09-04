@@ -16,7 +16,6 @@ export default class Inventory extends Model{
         type: Sequelize.JSON,
         validate: {
           itensValida(value){
-            //só strings devem passar
             if(value.itens.length > this.slots) throw new Error('Your inventory is full');
           },
         }

@@ -46,7 +46,13 @@ class InventoryController{
       }
 
       if(add){
-        const newItens = [ ...inventoryItens, add];
+        if(typeof add !== 'string') {
+          return res.json('Invalid value');
+        }
+        if(add.trim() === ''){
+          return res.json('Invalid value');
+        }
+        const newItens = [ ...inventoryItens, add.toLowerCase()];
         if(newItens.length > limit){
           return res.json('You cant do this, because it will exceed your slots');
         }
@@ -57,15 +63,18 @@ class InventoryController{
         return res.json(newInventory);
       }
       if(del){
+        if(typeof del !== 'string'){
+          return res.json('Invalid value');
+        }
         const itenToDel = inventoryItens.find(item => {
-          return item === del;
+          return item.toLowerCase() === del.toLowerCase();
         })
 
         if(itenToDel === undefined){
           return res.json('This item are not on your inventory');
         }
 
-        const indexDel = indexOf(itenToDel);
+        const indexDel = inventoryItens.indexOf(itenToDel);
         const newItens = [ ...inventoryItens];
         newItens.splice(indexDel, 1);
 
@@ -80,6 +89,11 @@ class InventoryController{
         const newItens = req.body.rewrite;
         if(newItens.length > limit){
           return res.json('You cant do this, because it will exceed your slots');
+        }
+
+        const type = newItens.find(item => typeof item !== 'string')
+        if(type !== undefined){
+          return res.json('Only strings are allowed on an inventory');
         }
 
         const newInventoryData = {
